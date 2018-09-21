@@ -287,7 +287,7 @@ public class SocketService extends Service {
             sendThread.start();
         } else {
             toastMsg("socket连接错误,请重试");
-            releaseSocket();
+            //releaseSocket();
         }
     }
 
