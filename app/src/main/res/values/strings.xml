@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">终端控制器</string>
+    <string name="empty_text">没有可以控制的电脑请按+号添加</string>
+
+
+    <!--  device_item_view -->
+    <string name="device_item_view_name">Device name</string>
+    <string name="device_item_view_host">192.168.1.255</string>
+    <string name="device_item_view_port">Port: 9</string>
+
+    <!-- activity_device -->
+    <string name="activity_device_text_name">Name</string>
+    <string name="activity_device_edit_name">Home PC</string>
+
+    <string name="activity_device_text_host">Host IP</string>
+    <string name="activity_device_edit_host">192.168.1.255</string>
+    <string name="activity_device_text_port">Port</string>
+    <string name="activity_device_edit_port">9</string>
+
+
+    <!-- menu titles -->
+    <string name="menu_title_help">Help</string>
+    <string name="menu_title_new">New</string>
+    <string name="menu_title_save">Save</string>
+    <string name="menu_title_settings">Settings</string>
+</resources>

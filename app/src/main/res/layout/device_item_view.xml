@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/device_item_view_selector">
+
+    <TextView
+        android:id="@+id/device_item_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="88dp"
+        android:padding="8dp"
+        android:text="@string/device_item_view_name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:layout_width="293dp"
+        android:layout_height="42dp"
+        android:layout_alignStart="@+id/device_item_text_name"
+        android:layout_below="@+id/device_item_text_name"
+        android:layout_weight=".50"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/device_item_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/device_item_text_name"
+            android:layout_centerHorizontal="true"
+            android:background="#33b5e5" />
+
+        <LinearLayout
+            android:id="@+id/layout_linear_device_info_1"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_alignStart="@+id/device_item_text_name"
+            android:layout_below="@+id/device_item_divider"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:id="@+id/device_item_txt_host"
+                android:layout_width="316dp"
+                android:layout_height="29dp"
+                android:layout_weight=".50"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:text="@string/device_item_view_host"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/device_item_txt_port"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:layout_weight=".50"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/device_item_view_port"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="51dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="14dp"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+</RelativeLayout>

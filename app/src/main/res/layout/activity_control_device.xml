@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ControlDevice">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="88dp"
+            android:padding="8dp"
+            android:text="@string/device_item_view_name"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="293dp"
+            android:layout_height="42dp"
+            android:layout_alignStart="@+id/device_name"
+            android:layout_below="@+id/device_name"
+            android:layout_weight=".50"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/device_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/device_name"
+                android:layout_centerHorizontal="true"
+                android:background="#33b5e5" />
+
+            <LinearLayout
+                android:id="@+id/layout_linear_device_info_2"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_alignStart="@+id/device_name"
+                android:layout_below="@+id/device_divider"
+                android:orientation="horizontal"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp">
+
+                <TextView
+                    android:id="@+id/device_host"
+                    android:layout_width="316dp"
+                    android:layout_height="29dp"
+                    android:layout_weight=".50"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingRight="8dp"
+                    android:singleLine="true"
+                    android:text="@string/device_item_view_host"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/device_port"
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:layout_weight=".50"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/device_item_view_port"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="51dp"
+            android:layout_height="61dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="14dp"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/wifi"
+            android:layout_width="51dp"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="27dp"
+            app:srcCompat="@mipmap/nowifi" />
+
+        <LinearLayout
+            android:layout_width="353dp"
+            android:layout_height="111dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="114dp">
+
+            <ImageButton
+                android:id="@+id/play"
+                android:layout_width="103dp"
+                android:layout_height="match_parent"
+
+                app:srcCompat="@mipmap/play" />
+
+            <Button
+                android:id="@+id/open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="打开" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="334dp"
+            android:layout_height="157dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="61dp"
+            android:text="" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="123dp"
+            android:text="请求" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
