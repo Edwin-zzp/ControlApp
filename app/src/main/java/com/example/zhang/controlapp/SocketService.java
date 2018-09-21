@@ -138,6 +138,7 @@ public class SocketService extends Service {
                             msg.setTag("connectSucccess");
                             EventBus.getDefault().post(msg);
                             /*发送心跳数据*/
+
                             sendBeatData();
 
                             receive();
@@ -149,7 +150,7 @@ public class SocketService extends Service {
                         e.printStackTrace();
                         if (e instanceof SocketTimeoutException) {
                             toastMsg("连接超时，请检查");
-                            /*发送连接成功的消息*/
+                            /*发送连接失败的消息*/
                             EventMsg msg = new EventMsg();
                             msg.setTag("connectfaile");
                             EventBus.getDefault().post(msg);
@@ -301,6 +302,7 @@ public class SocketService extends Service {
                 @Override
                 public void run() {
                     try {
+                        Log.i(TAG,"send test");
                         outputStream = socket.getOutputStream();
 
                         /*这里的编码方式根据你的需求去改*/
