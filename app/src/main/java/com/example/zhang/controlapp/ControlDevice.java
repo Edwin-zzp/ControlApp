@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,25 +34,23 @@ import android.widget.Toast;
 
 import com.example.zhang.controlapp.common.EventMsg;
 import com.example.zhang.controlapp.models.DeviceModel;
-import com.example.zhang.controlapp.models.MovieModel;
 import com.example.zhang.controlapp.models.RoundImageDrawable;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ControlDevice extends BaseActivity {
 
     private DeviceModel mDevice = null;
     private String ip;
     private Integer port;
+    private Integer movienumber;
 
     private static final String TAG = "ControlD";
     private boolean keystate =true;
@@ -62,12 +61,14 @@ public class ControlDevice extends BaseActivity {
     private ImageButton paly;
     private Button open,send;
     private ListView MovieList;
+
+    private String moviename;
    // private Intent intent;
 
     private boolean isConnectSuccess = false;
 
     //private List<String> item = new ArrayList<>();
-    private StringBuffer item= new StringBuffer();
+    private ArrayList<String> item= new ArrayList<String>();
 
 
 
@@ -158,12 +159,41 @@ public class ControlDevice extends BaseActivity {
         send.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                text.setText("");
-                socketService.sendOrder("send");
+                //ext.setText("");
+                socketService.sendOrder("full");
             }
         });
 
 
+       MovieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               moviename=MovieList.getItemAtPosition(i).toString();
+               //Toast.makeText(getApplicationContext(),"text="+text , Toast.LENGTH_SHORT).show();
+               showmovie();
+           }
+       });
+
+    }
+
+
+    private void showmovie() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("选择影片");
+        alert.setMessage("确定选择"+moviename+"影片播放吗？" + "\n" );
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                socketService.sendOrder(moviename);
+
+                socketService.sendOrder("open");
+            }
+        });
+        alert.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //finish();
+            }
+        });
+        alert.show();
     }
 
     private void onService (DeviceModel device){
@@ -189,6 +219,10 @@ public class ControlDevice extends BaseActivity {
         return false;
     }
 
+    private static boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
+    }
 
 
 
@@ -197,62 +231,67 @@ public class ControlDevice extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void skipToMainActivity(EventMsg msg) {
         Log.i(TAG,msg.getTag());
-        switch (msg.getTag()) {
-            case "connectSucccess":
-                /*接收到这个消息说明连接成功*/
-                isConnectSuccess = true;
-                /*连接成功后干的事*/
 
-                wifi.setImageResource(R.mipmap.wifi);
-                break;
-            case "connectfaile":
+        if(isInteger(msg.getTag())){
+            movienumber=Integer.valueOf(msg.getTag()).intValue();
+            Log.i(TAG,movienumber.toString());
+        }
+        else {
+            switch (msg.getTag()) {
+                case "connectSucccess":
+                    /*接收到这个消息说明连接成功*/
+                    isConnectSuccess = true;
+                    /*连接成功后干的事*/
 
-                isConnectSuccess = false;
-                wifi.setImageResource(R.mipmap.nowifi);
+                    wifi.setImageResource(R.mipmap.wifi);
+                    break;
+                case "connectfaile":
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    isConnectSuccess = false;
+                    wifi.setImageResource(R.mipmap.nowifi);
 
-                alert.setTitle("连接失败");
-                alert.setMessage("点击确定重新连接。"+"\n\n"+"点击返回重新选择机器。");
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-                alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        socketService.reconnect();
+                    alert.setTitle("连接失败");
+                    alert.setMessage("点击确定重新连接。" + "\n\n" + "点击返回重新选择机器。");
+
+                    alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            socketService.reconnect();
+                        }
+                    });
+
+                    alert.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                    });
+                    alert.show();
+                    break;
+                case "ok":
+                    //                socketService.sendOrder("收到了老板");
+                   // text.setText(text.getText() + msg.getTag());
+                    break;
+                default:
+                    if(i<movienumber) {
+                        item.add(msg.getTag());
+                        i++;
                     }
-                });
-
-                alert.setNegativeButton("返回", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        finish();
+                    else{
+                        String[] movie = new String[item.size()];
+                        Log.i(TAG, "length=" + item.size());
+                        item.toArray(movie);
+                        Log.i(TAG, "item=" + item);
+                        ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,movie);
+                        MovieList.setAdapter(list1);
+                        i=0;
+                        item.clear();
                     }
-                });
-                alert.show();
-                break;
-            case "ok":
-//                socketService.sendOrder("收到了老板");
-                text.setText(text.getText()+msg.getTag());
-                break;
-            default:
-//                if(i<2) {
-//                    item[i] = msg.getTag();
-//                    i++;
-//                }
 
-                Log.i(TAG,"length="+item.capacity());
-
-                item.append(msg.getTag());
-
-                Log.i(TAG,"item="+item.toString());
-                //Log.i(TAG,"item0"+item[0]);
-                //Log.i(TAG,"item1"+item[1]);
-
-                //ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,temp);
-                //MovieList.setAdapter(list1);
-
-
-                socketService.sendOrder("收到了老板");
-                //text7.setText(text7.getText()+"\n"+msg.getTag());
-                break;
+                    //socketService.sendOrder("收到了老板");
+                    //text7.setText(text7.getText()+"\n"+msg.getTag());
+                    break;
+            }
         }
     }
 

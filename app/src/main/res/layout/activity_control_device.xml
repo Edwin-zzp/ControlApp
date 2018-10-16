@@ -14,7 +14,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/device_name"
@@ -132,13 +132,13 @@
 
         <Button
             android:id="@+id/send"
-            android:layout_width="wrap_content"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="131dp"
-            android:layout_marginTop="234dp"
-            android:text="请求" />
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="233dp"
+            android:text="全屏" />
 
         <ListView
             android:id="@+id/movielist"

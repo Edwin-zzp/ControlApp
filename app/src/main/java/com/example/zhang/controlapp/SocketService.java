@@ -143,6 +143,8 @@ public class SocketService extends Service {
 
                             receive();
 
+                            outputStream.write(("send").getBytes(encoding));
+                            outputStream.flush();
 
                         }
 
