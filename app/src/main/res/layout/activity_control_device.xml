@@ -124,10 +124,10 @@
         <TextView
             android:id="@+id/textView3"
             android:layout_width="334dp"
-            android:layout_height="157dp"
+            android:layout_height="41dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="61dp"
+            android:layout_marginBottom="233dp"
             android:text="" />
 
         <Button
@@ -135,9 +135,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="123dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="234dp"
             android:text="请求" />
+
+        <ListView
+            android:id="@+id/movielist"
+            android:layout_width="match_parent"
+            android:layout_height="199dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="14dp" />
 
     </RelativeLayout>
 
