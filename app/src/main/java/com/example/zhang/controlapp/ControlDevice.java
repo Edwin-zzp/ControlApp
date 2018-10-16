@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,12 +61,16 @@ public class ControlDevice extends BaseActivity {
     private ImageView wifi;
     private ImageButton paly;
     private Button open,send;
+    private ListView MovieList;
    // private Intent intent;
 
     private boolean isConnectSuccess = false;
 
     //private List<String> item = new ArrayList<>();
-    private String item[]=new String[2];
+    private StringBuffer item= new StringBuffer();
+
+
+
     private static int i=0;
 
     private ServiceConnection sc;
@@ -78,6 +83,7 @@ public class ControlDevice extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_device);
+
 
 
         /*register EventBus*/
@@ -95,6 +101,8 @@ public class ControlDevice extends BaseActivity {
         open =findViewById(R.id.open);
         send =findViewById(R.id.send);
 
+        MovieList = findViewById(R.id.movielist);
+
         paly.setImageDrawable(new RoundImageDrawable(BitmapFactory.decodeResource(getResources(),R.mipmap.play)));
 
 
@@ -107,6 +115,12 @@ public class ControlDevice extends BaseActivity {
         device_name.setText(device.getName());
         device_host.setText(device.getHost());
         device_port.setText(device.getPort().toString());
+
+        //String[] arr1= {"diyi","第一"};
+//         ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,arr1);
+//
+//          MovieList.setAdapter(list1);
+
 
         /*先判断 Service是否正在运行 如果正在运行  给出提示  防止启动多个service*/
         if (isServiceRunning("com.example.zhang.controlapp.SocketService")) {
@@ -214,16 +228,31 @@ public class ControlDevice extends BaseActivity {
                 });
                 alert.show();
                 break;
-            default:
-                if(i<2) {
-                    item[i] = msg.getTag();
-                    i++;
-                }
-                Log.i(TAG,"item0"+item[0]);
-                Log.i(TAG,"item1"+item[1]);
+            case "ok":
+//                socketService.sendOrder("收到了老板");
                 text.setText(text.getText()+msg.getTag());
+                break;
+            default:
+//                if(i<2) {
+//                    item[i] = msg.getTag();
+//                    i++;
+//                }
+
+                Log.i(TAG,"length="+item.capacity());
+
+                item.append(msg.getTag());
+
+                Log.i(TAG,"item="+item.toString());
+                //Log.i(TAG,"item0"+item[0]);
+                //Log.i(TAG,"item1"+item[1]);
+
+                //ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,temp);
+                //MovieList.setAdapter(list1);
+
+
                 socketService.sendOrder("收到了老板");
                 //text7.setText(text7.getText()+"\n"+msg.getTag());
+                break;
         }
     }
 
