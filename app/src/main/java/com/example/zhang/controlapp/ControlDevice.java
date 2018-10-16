@@ -245,7 +245,7 @@ public class ControlDevice extends BaseActivity {
                 Log.i(TAG,"item="+item.toString());
                 //Log.i(TAG,"item0"+item[0]);
                 //Log.i(TAG,"item1"+item[1]);
-                
+
                 //ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,temp);
                 //MovieList.setAdapter(list1);
 
