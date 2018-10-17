@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ControlDevice extends BaseActivity {
@@ -67,7 +68,7 @@ public class ControlDevice extends BaseActivity {
     private boolean isConnectSuccess = false;
 
     //private List<String> item = new ArrayList<>();
-    private StringBuffer item= new StringBuffer();
+    private String[] item= new String[]{};
 
 
 
@@ -238,19 +239,26 @@ public class ControlDevice extends BaseActivity {
 //                    i++;
 //                }
 
-                Log.i(TAG,"length="+item.capacity());
+                Log.i(TAG,"length="+item.length);
 
-                item.append(msg.getTag());
+                item= Arrays.copyOf(item,item.length+1);
+                item[item.length-1]=msg.getTag();
 
-                Log.i(TAG,"item="+item.toString());
+
+                for(int i=0;i<item.length;i++) {
+                    Log.i(TAG, "item"+i+"=" + item[i]);
+                }
                 //Log.i(TAG,"item0"+item[0]);
                 //Log.i(TAG,"item1"+item[1]);
 
-                //ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,temp);
-                //MovieList.setAdapter(list1);
+                ArrayAdapter<String> list1 =new ArrayAdapter<String>(this,R.layout.movie_view,item);
+                MovieList.setAdapter(list1);
 
 
                 socketService.sendOrder("收到了老板");
+                for(int i=0;i<item.length;i++) {
+                    item[i]="";
+                }
                 //text7.setText(text7.getText()+"\n"+msg.getTag());
                 break;
         }
